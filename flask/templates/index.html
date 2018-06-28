@@ -1,0 +1,159 @@
+<html>
+  <head>
+	
+	<style>
+  body {background-color: powderblue;}
+  h1 {color: green;}
+  p {color: #193300; font-size: 20px;}
+  select {font-size: 20px; color: #660033; }
+  button {font-size: 20px; color: #660033;}
+}
+
+</style>
+        
+     </head>
+  <body style="margin:20;padding:20" >
+
+
+
+<img src='/static/image/image2.jpg'> 
+
+    <h1>Probability of animal adoption</h1>
+
+
+
+<p><p>
+
+
+
+           <label for='animal'>Animal type</label>
+          <select id = 'animal' name='animal'>
+            <option value="cat">cat</option>       
+            <option value="dog">dog</option>
+            <option value="other">other</option>
+            
+          </select>
+
+         
+
+<p>
+
+           <label for='intake_reproductive'>Intake reproductive status </label>
+          <select id = 'intake_reproductive' name='intake_reproductive'>
+            <option value="fertile">fertile</option>
+            <option value="altered">altered</option>
+           
+            
+          </select>
+
+
+
+<p>
+
+           <label for='outcome_reproductive'>Outcome reproductive status </label>
+          <select id = 'outcome_reproductive' name='outcome_reproductive'>
+            <option value="fertile">fertile</option>
+            <option value="altered">altered</option>
+            
+            
+          </select>
+
+
+<p>
+
+           <label for='intake_health'>Intake health </label>
+          <select id = 'intake_health' name='intake_health'>
+            <option value="healthy">healthy</option>
+            <option value="not_healthy">unhealthy</option>
+            
+            
+          </select>
+
+<p>
+
+           <label for='outcome_health'>Outcome health </label>
+          <select id = 'outcome_health' name='outcome_health'>
+            <option value="healthy">healthy</option>
+            <option value="not_healthy">unhealthy</option>
+            
+            
+          </select>
+
+
+
+ 
+<p>
+
+
+    <button id='do_it' onclick='updateScore()' class="btn btn-info btn-block"> Submit</button>
+
+    <p>Probability of getting adopted: <div id="output">?</div></p>
+
+
+
+    <script type='text/javascript' src="{{url_for('static', filename='js/jquery.js') }}"></script>
+
+    <script>
+    function updateScore(){
+ 
+      const theAnimal = document.getElementById('animal');
+      const theIntake_reproductive=document.getElementById('intake_reproductive')
+      const theOutcome_reproductive=document.getElementById('outcome_reproductive') 
+      const theIntake_health=document.getElementById('intake_health')     
+      const theOutcome_health=document.getElementById('outcome_health')
+
+
+
+      const outputElement = document.getElementById('output');
+      
+      const myPayload = {
+          animalType: theAnimal.value,
+          intake_reproductive: theIntake_reproductive.value,
+          outcome_reproductive: theOutcome_reproductive.value,
+          intake_health: theIntake_health.value,
+          outcome_health: theOutcome_health.value
+        }
+      
+      console.log(myPayload);
+      /*
+      console.log(JSON.stringify({
+          animalType: theAnimal.value
+        }))
+
+      console.log(JSON.stringify({
+          intake_reproductive: theIntake_reproductive.value
+        }))
+
+      console.log(JSON.stringify({
+          outcome_reproductive: theOutcome_reproductive.value
+        })) 
+
+      console.log(JSON.stringify({
+          intake_health: theIntake_health.value
+        })) 
+
+      console.log(JSON.stringify({
+          outcome_health: theOutcome_health.value
+        }))
+
+      */
+      $.ajax({
+        type: 'POST',
+        contentType: "application/json; charset=utf-8",
+        url: '/adoption_probability',
+        async: true,
+        data: JSON.stringify(myPayload),
+        success: (response) => {
+          outputElement.textContent = response.score;
+        },
+        error: (response) => {
+          console.log(response);
+          outputElement.textContent = 'INVALID';
+        }
+      })
+    }
+    </script>
+
+  </body>
+
+</html>
