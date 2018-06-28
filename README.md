@@ -1,6 +1,8 @@
 
 ## Description of submitted files
 
+### Project Description Slides
+* prioritizing_shelter_animals_for_adoption_slides.pdf
 
 ### Data cleaning and transformation
 
@@ -24,5 +26,3 @@
 ### Helper file
 * generate_template_for_flask_api.ipynb : generates a template filled with some default values for api.py in flask directory to use
 
-### Presentation
-* proj3__slides_jie.pdf
