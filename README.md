@@ -1,5 +1,5 @@
 
-## Description of submitted files
+
 
 ### Project Description Slides
 * prioritizing_shelter_animals_for_adoption_slides.pdf
